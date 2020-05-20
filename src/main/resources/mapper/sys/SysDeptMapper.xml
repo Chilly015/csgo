@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cs.sys.dao.SysDeptDao">
+   <select id="findById" resultType="com.cs.sys.entity.SysDept">
+       select * from sys_depts where id = #{deptId}
+   </select>
+
+    <select id="doFindObjects" resultType="map">
+        select s1.*,s2.name parentName from sys_depts s1 left join sys_depts s2 on s1.parentId = s2.id
+    </select>
+
+    <insert id="doSaveObject" parameterType="com.cs.sys.entity.SysDept">
+        insert into sys_depts values (null,#{name},#{parentId},#{sort},#{note},now(),now(),#{createdUser},#{modifiedUser})
+    </insert>
+
+    <update id="doUpdateObject" parameterType="com.cs.sys.entity.SysDept">
+        update sys_depts set name=#{name},parentId=#{parentId},sort=#{sort},note=#{note},modifiedTime=#{modifiedTime}
+        where id = #{id}
+    </update>
+</mapper>
+        <!--private String name;
+        private Integer parentId;
+        private Integer sort;
+        private String note;
+        private Date createdTime;
+        private Date modifiedTime;
+        private String createdUser;
+        private String modifiedUser;-->
